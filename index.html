@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiolFix</title>
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="assets/images/piolfix_app_trans_logo.png" type="image/png">
+    <link href="/assets/css/main.css" rel="stylesheet">
+
+    <!-- google font style (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Alphine js light weight js library -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Animate On Scroll -->
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Swiper.js -->
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+</head>
+
+<body class="font-poppins" :class="{'h-screen overflow-hidden': open}" x-data="pageData">
+
+    <div class="w-screen h-screen bg-white fixed top-0 z-[999999999] flex items-center justify-center opacity-100 transition-all duration-700"
+        :class="{'opacity-0 invisible' : showSplash, 'opacity-100': !showSplash}" @load.window="toggleSplash">
+        <div class="flex flex-col items-center">
+            <div class="mb-4">
+                <img src="./assets/images/piolfix_app_trans_logo.png" class="w-32 md:w-44" alt="">
+            </div>
+            <h5 class="text-xl md:text-2xl text-primary mb-6">Home For OutSourcing</h5>
+            <h5 class="text-3xl md:text-4xl text-blue-zodiac">Loading...</h5>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="relative w-full " @scroll.window="showBar = (window.pageYOffset > 200) ? true : false"
+        @load.window="showBar = false">
+        <!-- <div class="border-b border-gray-300 hidden md:block">
+
+            <div class="container">
+                <div class="flex justify-between items-center py-5">
+                    <img src="/assets/images/Group 1 (1).png" class="w-24" alt="">
+
+                    <div class="flex items-center space-x-10">
+                        <span class="flex space-x-2 text-sm">
+                            <span class=" text-primary"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="text-gray-400">info@domain.com</span>
+                        </span>
+
+                        <span class="flex space-x-2 text-sm">
+                            <span class=" text-primary"><i class="fa-solid fa-phone"></i></span>
+                            <span class="text-gray-400">+236 672367020</span>
+                        </span>
+
+                        <a href="#" class="button">
+                            Get Free Quote</a>
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+
+        <div class=""
+            :class="{'fixed w-full py-3 z-[10000] bg-white left-0 right-0 -top-96  transition duration-700 transform translate-y-96 text-black shadow-lg': showBar, 'py-5':!showBar}">
+            <div class="container">
+                <div class="flex justify-between items-center">
+
+                    <div class="">
+                        <img src="/assets/images/piolfix_app_trans_logo.png" class="w-14 md:w-20" alt="">
+                    </div>
+
+                    <!-- Menu Items -->
+                    <div class="hidden space-x-6 lg:flex text-gray-400">
+                        <ul class="flex space-x-8">
+                            <li
+                                class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                                <a href="#" class="">Home</a>
+                            </li>
+                            <li
+                                class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                                <a href="#" class="">Services</a>
+                            </li>
+                            <li
+                                class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                                <a href="#" class="">About</a>
+                            </li>
+
+                            <li
+                                class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                                <a href="#" class="">Pages</a>
+                                <span>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </span>
+
+                                <ul
+                                    class="absolute top-full left-0 w-44  flex flex-col p-2 shadow-lg bg-white invisible group-hover:visible transition-all z-[2000]">
+                                    <li class="p-2 text-black">
+                                        <a href="#">Something</a>
+                                    </li>
+
+                                    <li class="p-2 text-black">
+                                        <a href="#">Something</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li
+                                class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                                <a href="#" class="">Blog</a>
+                                <span>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </span>
+
+                                <ul
+                                    class="absolute top-full left-0 w-44  flex flex-col p-2 shadow-lg bg-white invisible group-hover:visible transition-all z-[2000]">
+                                    <li class="p-2 text-black">
+                                        <a href="#">Something</a>
+                                    </li>
+
+                                    <li class="p-2 text-black">
+                                        <a href="#">Something</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li
+                                class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                                <a href="#" class="">Contact</a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                    <!-- Hamburger Icon -->
+                    <span class="text-2xl block lg:hidden focus:outline-none text-blue-zodiac" @click="open = !open">
+                        <i class="fa-solid fa-bars" x-show="!open"></i>
+                        <i class="fa-solid fa-xmark" x-show="open"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+
+        <div class="fixed top-0 z-[60000] h-screen w-9/12 bg-alice-blue px-6 pt-10 transition-all duration-200"
+            :class="{'left-0': open, '-left-full': !open}">
+
+            <div class="mb-8">
+                <img src="/assets/images/piolfix_app_trans_logo.png" class="w-24" alt="">
+            </div>
+
+
+            <ul class="flex flex-col space-y-8">
+                <li class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                    <a href="#" class="">Home</a>
+                </li>
+                <li class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                    <a href="#" class="">Services</a>
+                </li>
+                <li class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                    <a href="#" class="">About</a>
+                </li>
+
+                <li class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                    <a href="#" class="">Pages</a>
+                    <span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </span>
+
+                    <ul
+                        class="absolute top-full left-0 w-44  flex flex-col p-2 shadow-lg bg-white invisible group-hover:visible transition-all z-[2000]">
+                        <li class="p-2 text-black">
+                            <a href="#">Something</a>
+                        </li>
+
+                        <li class="p-2 text-black">
+                            <a href="#">Something</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                    <a href="#" class="">Blog</a>
+                    <span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </span>
+
+                    <ul
+                        class="absolute top-full left-0 w-44  flex flex-col p-2 shadow-lg bg-white invisible group-hover:visible transition-all z-[2000]">
+                        <li class="p-2 text-black">
+                            <a href="#">Something</a>
+                        </li>
+
+                        <li class="p-2 text-black">
+                            <a href="#">Something</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="flex items-center space-x-2 relative group hover:text-primary transition-all duration-200 ">
+                    <a href="#" class="">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- <div class="lg:hidden">
+            <div id="menu"
+                class="absolute flex-col items-center self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md"
+                :class="open ? 'flex' : 'hidden'">
+                <a href="/#home" class="nav-link hover:text-darkGrayishBlue">Home</a>
+                <a href="/#about" class="nav-link hover:text-darkGrayishBlue">About Us</a>
+                <a href="/#howItWorks" class="nav-link hover:text-darkGrayishBlue">How It Works</a>
+                <a href="/#team" class="nav-link hover:text-darkGrayishBlue">Team</a>
+                <a href="/#services" class="nav-link hover:text-darkGrayishBlue">Services</a>
+                <a href="/#blog" class="nav-link hover:text-darkGrayishBlue">Blog</a>
+                <a href="/#contact" class="nav-link hover:text-darkGrayishBlue">Contact</a>
+            </div>
+        </div> -->
+    </nav>
+    <!-- End of Navbar -->
+
+    <!-- Hero Section -->
+    <section style="background-image: url('assets/images/bg_user_happy.jpg'); background-position: 50% -50px;"
+        class="h-[400px] md:h-[700px] lg:h-[800px]  bg-cover bg-center relative">
+
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+        <div class="container h-full flex flex-col justify-center items-center z-20 relative" data-aos="fade-up"
+            data-aos-delay="400">
+            <!-- <p class=" text-gray-300 mb-5 text-base md:text-xl uppercase">For Personal & Business</p> -->
+            <div class="w-full md:w-9/12 lg:w-7/12 flex flex-col justify-center items-center">
+                <h1 class="uppercase text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-10 text-center">Find
+                    Quality and skilled individials to handle your day to day tasks
+                </h1>
+
+                <a href="/track_order.html" class="bg-primary px-8 py-3 text-white text-base uppercase">Get Started</a>
+            </div>
+        </div>
+    </section>
+    <!-- End of Hero Section -->
+
+    <!-- Start of Download app -->
+    <section id="services" class="section bg-alice-blue">
+        <div class="container">
+
+            <div class="flex flex-col gap-y-2 md:gap-y-0 md:flex-row items-center">
+
+
+
+                <div class="w-full md:w-8/12">
+                    <h5 class="text-2xl md:text-2xl lg:text-3xl text-center md:text-left text-blue-zodiac mb-4">Be more
+                        flexible with our mobile apps</h5>
+
+                </div>
+
+                <div class="w-full md:w-4/12 flex flex-col items-center md:flex-row  gap-x-5 gap-y-5">
+                    <img src="/assets/images/get_play_store.png" class="w-28 md:w-32" alt="">
+                    <img src="/assets/images/get_appstore.png" class="w-28 md:w-32" alt="">
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- End of Download app -->
+
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-28">
+
+                <div class="flex flex-col group">
+
+                    <span class="font-bold text-5xl group-hover:text-primary">1.</span>
+                    <h3 class="mb-3 font-bold text-xl group-hover:text-primary transition-all">Select Task</h3>
+                    <p class=" font-light text-gray-400">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        Quasi,
+                        aut.
+                        consectetur adipisicing elit. Quasi, aut Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Ipsam, dolorem placeat quae itaque consequuntur porro optio ad consequatur eius minus.
+                    </p>
+                </div>
+
+                <div class="flex flex-col group">
+
+                    <span class="font-bold text-5xl group-hover:text-primary">2.</span>
+                    <h3 class="mb-3 font-bold text-xl group-hover:text-primary transition-all">Find Tasker's</h3>
+                    <p class=" font-light text-gray-400">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        Quasi,
+                        aut.
+                        consectetur adipisicing elit. Quasi, aut Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Ipsam, dolorem placeat quae itaque consequuntur porro optio ad consequatur eius minus.
+                    </p>
+                </div>
+
+                <div class="flex flex-col group">
+
+                    <span class="font-bold text-5xl group-hover:text-primary">3.</span>
+                    <h3 class="mb-3 font-bold text-xl group-hover:text-primary transition-all">Book Service</h3>
+                    <p class=" font-light text-gray-400">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        Quasi,
+                        aut.
+                        consectetur adipisicing elit. Quasi, aut Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Ipsam, dolorem placeat quae itaque consequuntur porro optio ad consequatur eius minus.
+                    </p>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </section>
+    <!-- End of Services Section -->
+
+
+
+    <!-- Secure and Safe Section -->
+    <section style="background-image: url('assets/images/users_safe.jpg'); background-position: 50% -25px;"
+        class="h-[300px] md:h-[400px] bg-cover bg-center relative mb-5 md:mb-12">
+
+        <div class="absolute inset-0 bg-blue-zodiac/50 z-10"></div>
+
+        <div class="container h-full flex flex-col justify-center items-center z-20 relative">
+            <div class="w-full flex flex-col md:flex-row justify-between items-center">
+                <div class="w-full md:w-6/12 flex flex-col items-center justify-center">
+                    <h1
+                        class="uppercase text-2xl md:text-3xl lg:text-5xl font-medium text-white  mb-2 md:mb-5 text-center md:text-left">
+                        100% Safe and Secure
+                    </h1>
+                    <p class="text-white mb-5 md:mb-0 text-xs md:text-sm uppercase text-center md:text-left">
+                        Always have peace of mind. All service providers undergo ID and criminal background checks.
+                    </p>
+                </div>
+
+
+
+                <div class="w-full md:w-6/12 flex flex-col items-center justify-center">
+                    <a href="/track_order.html" class="btn_rounded_corner lg:text-2xl">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Secure and Safe Section -->
+
+
+    <!-- Why-Us Section -->
+    <section class="section">
+        <div class="container">
+            <div class="flex flex-col md:flex-row md:items-center">
+
+
+
+                <div class="w-full md:w-[25rem] md:h-[20rem] lg:w-[30rem] lg:h-[35rem] shrink-0  relative group">
+
+                    <div
+                        class="w-full h-full relative md:absolute z-30 overflow-hidden shadow-lg group-hover:shadow-xl">
+                        <img src="./assets/images/about.png.webp" class="object-cover w-full h-full z-30" alt="">
+                    </div>
+
+                    <div
+                        class="w-full h-full absolute transform translate-x-4 translate-y-3 group-hover:translate-y-5 group-hover:translate-x-6 transition-all z-10 bg-primary hidden md:block">
+                    </div>
+
+                </div>
+
+
+                <div class="flex flex-col space-y-5 mt-10 md:mt-0 ml-0 md:ml-14 lg:ml-32">
+                    <h5 class="text-3xl md:text-4xl mb-5 text-gray-400">Why Choose Us?</h5>
+
+                    <p class="text-gray-400 text-base md:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit sed do
+                        eiusmod tempor incididunt.</p>
+
+                    <ul class="flex flex-col space-y-3 ">
+                        <li class="flex">
+                            <span class=" text-primary mr-3"><i class="fa-solid fa-check"></i></span>
+                            <span>Error minus sint nobis dolor </span>
+                        </li>
+                        <li class="flex">
+                            <span class=" text-primary mr-3"><i class="fa-solid fa-check"></i></span>
+                            <span>Error minus sint nobis dolor</span>
+                        </li>
+                        <li class="flex">
+                            <span class=" text-primary mr-3"><i class="fa-solid fa-check"></i></span>
+                            <span>Error minus sint nobis dolor</span>
+                        </li>
+                    </ul>
+
+                    <div class="pt-8 md:pt-10">
+                        <a href="#" class="button">
+                            About Us</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 lg:grid-cols-4 gap-x-6 p-10 bg-alice-blue">
+
+                    <div class="flex flex-col items-center justify-center">
+                        <h5 class="text-5xl text-primary">100+</h5>
+                        <h6 class="text-gray-400 text-lg">Satisfied Clients</h6>
+                    </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <h5 class="text-5xl text-primary">8+</h5>
+                        <h6 class="text-gray-400 text-lg">Countries Covered</h6>
+                    </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <h5 class="text-5xl text-primary">10+</h5>
+                        <h6 class="text-gray-400 text-lg">Partners</h6>
+                    </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <h5 class="text-5xl text-primary">1,000+</h5>
+                        <h6 class="text-gray-400 text-lg">Empowered Users</h6>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Why-Us Section -->
+
+
+    <!-- Testimonial Sectionn -->
+
+    <section style="background-image: url('assets/images/testmonial.png.webp'); background-position: 50% -25px;"
+        class="h-[550px] md:h-[700px]  bg-cover bg-center relative flex items-center">
+
+        <!-- <div class="absolute inset-0 bg-black/40 z-10"></div> -->
+
+        <div class=" container  relative z-20 ">
+            <div class="w-full h-full md:w-8/12 lg:w-5/12 bg-white rounded-lg py-8 px-4 md:p-15  lg:p-20">
+                <div class="flex flex-col items-center">
+                    <div class="mb-10">
+                        <img src="./assets/images/quote.svg" class="" alt="">
+                    </div>
+                    <p class="text-center text-blue-zodiac text-lg lg:text-xl mb-10">
+                        I love the way the app provided me with trusted service providers for moving, mounting and
+                        cleaning my house. Thumbs up.
+                    </p>
+
+                    <div
+                        class=" w-10 h-10 md:w-12 md:h-12 bg-primary border-2 border-white flex items-center justify-center text-white text-base rounded-full mb-3 md:mb-2 overflow-hidden">
+
+                        <img src="./assets/images/person_1.jpg.webp" alt="">
+
+                    </div>
+
+                    <h6 class="text-base text-blue-zodiac font-medium mb-1">Richard Arc</h6>
+
+                    <h6 class="text-xs text-gray-400">Business Owner</h6>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- End of Testimonial Section -->
+
+
+    <!-- Estimate Section -->
+
+    <!-- <section style="background-image: url('assets/images/Estimate_bg.png.webp'); background-position: 50% -25px;"
+        class="  bg-cover bg-center relative section">
+
+        <div class="absolute inset-0 bg-blue-zodiac/90 z-10"></div>
+
+        <div class="container z-20 relative w-full h-full  flex items-center">
+            <div class=" w-full flex flex-col space-y-4 md:space-y-0 md:flex-row justify-between">
+                <div class="w-full md:w-4/12">
+                    <h1
+                        class="uppercase text-2xl md:text-2xl font-medium text-white  mb-2 md:mb-7 text-center md:text-left">
+                        Get Free Estimate
+                    </h1>
+                    <p class="text-white mb-5 md:mb-10 text-xs md:text-sm uppercase ">Lorem
+                        ipsum dolor sit amet, consectetur adipisicing
+                        elit.
+                        Corrupti, sapiente.
+                    </p>
+
+                    <a href="/track_order.html" class="btn_rounded_corner">+237
+                        672 367 020</a>
+                </div>
+
+                <div class="w-full md:w-7/12 ">
+                    <form>
+                        <div class="grid grid-cols-1 gap-y-4">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-3">
+                                <div class="">
+                                    <input type="text"
+                                        class="w-full border bg-transparent rounded-lg border-gray-300 px-3 py-2 text-base text-white outline-none"
+                                        placeholder="Your Name">
+                                </div>
+                                <div class="">
+                                    <input type="text"
+                                        class="w-full border bg-transparent rounded-lg border-gray-300 px-3 py-2 text-base text-white outline-none"
+                                        placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-3">
+                                <div class="">
+                                    <input type="text"
+                                        class="w-full border bg-transparent rounded-lg border-gray-300 px-3 py-2 text-base text-white outline-none"
+                                        placeholder="Product Type">
+                                </div>
+                                <div class="">
+                                    <input type="text"
+                                        class="w-full border bg-transparent rounded-lg border-gray-300 px-3 py-2 text-base text-white outline-none"
+                                        placeholder="Product Size">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-3">
+                                <div class="">
+                                    <input type="text"
+                                        class="w-full border bg-transparent rounded-lg border-gray-300 px-3 py-2 text-base text-white outline-none"
+                                        placeholder="City Of Departure">
+                                </div>
+                                <div class="">
+                                    <input type="text"
+                                        class="w-full border bg-transparent rounded-lg border-gray-300 px-3 py-2 text-base text-white outline-none"
+                                        placeholder="Delivery City">
+                                </div>
+                            </div>
+
+                            <div>
+                                <h6 class="mb-1"></h6>
+                                <textarea name="" id="" cols="30" rows="5" placeholder="Message"
+                                    class="w-full border bg-transparent rounded-lg border-gray-300 px-3 py-2 text-base text-white outline-none"></textarea>
+                            </div>
+
+
+                            <div class="flex justify-center">
+                                <button class="bg-red-500 px-8 py-3 text-white text-base uppercase">Send
+                                    Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- End of Estimate Section -->
+
+    <!-- Social and Contact Section -->
+
+    <section id="services" class="section bg-alice-blue">
+        <div class="container">
+
+            <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row">
+
+                <div class="w-full md:w-6/12 flex flex-col space-y-5">
+                    <img src="/assets/images/piolfix_app_trans_logo.png" class="w-32" alt="">
+                    <div class="flex space-x-2">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-blue-300 text-white flex items-center justify-center">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-3/12">
+                    <h5 class="text-2xl text-blue-zodiac mb-4">Location</h5>
+                    <p class="text-gray-400 text-sm">Bonamousadi, opposite Parcour Vita,</br> Douala Akwa </p>
+                </div>
+
+
+                <div class="w-full md:w-3/12">
+                    <h5 class="text-2xl text-blue-zodiac mb-4">Contact</h5>
+                    <p class="text-gray-400 text-sm">+237 672 367 020 </br>
+                        support@piolfix.com</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- End of Social and Contact Section -->
+
+
+    <!-- Footer section -->
+
+    <footer class="py-10 md:py-20 bg-white">
+        <div class="container">
+
+
+            <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row w-full pb-10 border-b border-gray-300 ">
+                <div class="w-full md:w-6/12 lg:w-3/12 flex flex-col space-y-5">
+                    <h4 class="text-bold text-blue-zodiac text-lg">Services</h4>
+                    <div class="flex flex-col space-y-3">
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Air
+                            Transportation</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Ocean Freight</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Ocean Cargo</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Logistics</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Warehouse
+                            Moving</a>
+
+
+                    </div>
+                </div>
+                <div class="w-full md:w-6/12 lg:w-2/12 flex flex-col space-y-5 ">
+                    <h4 class="text-bold text-blue-zodiac text-lg">Company</h4>
+                    <div class="flex flex-col space-y-3">
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">About</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">News</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Testimonial</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Why Us?</a>
+
+
+                    </div>
+                </div>
+
+                <div class="w-full md:w-6/12 lg:w-3/12 flex flex-col space-y-5">
+                    <h4 class="text-bold text-blue-zodiac text-lg">Industries</h4>
+                    <div class="flex flex-col space-y-3">
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Chemicals</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Automotive</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Consumer Goods</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Life Science</a>
+                        <a href="" class="text-gray-400 text-base hover:text-primary transition-all">Foreign Trade</a>
+
+                    </div>
+                </div>
+
+                <div class="w-full md:w-6/12 lg:w-4/12 flex flex-col space-y-5 ">
+                    <div class="flex flex-col space-y-4">
+                        <h4 class="text-bold text-blue-zodiac text-lg">Subscribe Newsletter</h4>
+                        <div class="flex w-full">
+                            <input type="text" placeholder="Enter Email"
+                                class="border border-gray-300 px-2 py-2 text-base w-full">
+                            <button
+                                class="bg-red-500 px-4 py-3 text-white text-base uppercase inline-block">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <p class="pt-10 text-center text-gray-400 text-sm md:text-base">Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                with <span class="text-primary"><i class="fa-solid fa-heart"></i></span> by <span
+                    class="text-blue-zodiac">Mr.Arc</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- End of footer section -->
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<!-- <script src="./assets/js/nav_indicator_onscroll.js"></script> -->
+<script src="./assets/js/animation_on_scroll.js"></script>
+
+<script src="./assets/js/page_swiper.js"></script>
+
+
+<script>
+
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('pageData', () => ({
+
+            open: false,
+            showBar: true,
+            showSplash: false,
+
+            toggleSplash() {
+                setTimeout(() => {
+                    this.showSplash = true
+                }, 1000);
+            }
+        }))
+    })
+
+
+</script>
+
+
+</html>
